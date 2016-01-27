@@ -1,19 +1,19 @@
 "use strict";
 
-var _ = require('lodash');
 var ECMA_SIZE = require('./byte_size');
 var SIZE_FOR_UNRECOGNIZED_TYPE = 0;
 
 function size(obj) {
-  if (_.isString(obj)) {
+  var type = typeof obj;
+  if (type === 'string') {
     return obj.length * ECMA_SIZE.STRING;
   }
 
-  if (_.isBoolean(obj)) {
+  if (type === 'boolean') {
     return ECMA_SIZE.BOOLEAN;
   }
 
-  if (_.isNumber(obj)) {
+  if (type === 'number') {
     return ECMA_SIZE.NUMBER;
   }
 

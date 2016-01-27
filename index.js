@@ -2,7 +2,6 @@
 
 "use strict";
 
-var _           = require('lodash');
 var Stats       = require('./stats').Stats;
 var ECMA_SIZES  = require('./byte_size');
 
@@ -17,7 +16,7 @@ var collectKeysValues = function (object, stats) {
 
   for(var prop in object) {
     if(object.hasOwnProperty(prop)) {
-      if (_.isObject(object[prop])) {
+      if (typeof object[prop] === 'object') {
         // this key is a reference, count the key and proceed with the referenced value
         stats.addKey(prop);
         collectKeysValues(object[prop], stats);
@@ -40,8 +39,9 @@ var collectKeysValues = function (object, stats) {
 function sizeof(object) {
 
   var bytes = 0;
+  var type = typeof object;
 
-  if (_.isObject(object)) {
+  if (type === 'object') {
     if (Buffer.isBuffer(object)) {
       bytes = object.length;
     }
@@ -51,11 +51,11 @@ function sizeof(object) {
       // calculate size in Bytes based on ECMAScript Language Specs
       bytes = stats.calculateBytes();
     }
-  } else if (_.isString(object)) {
+  } else if (type === 'string') {
     bytes = object.length * ECMA_SIZES.STRING;
-  } else if (_.isBoolean(object)) {
+  } else if (type === 'boolean') {
     bytes = ECMA_SIZES.BOOLEAN;
-  } else if (_.isNumber(object)) {
+  } else if (type === 'number') {
     bytes = ECMA_SIZES.NUMBER;
   }
   return bytes;

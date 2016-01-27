@@ -19,9 +19,6 @@
   "author": "Andrei Karpushonak",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "dependencies": {
-    "lodash": "^4.0.0"
-  },
   "devDependencies": {
     "mocha": "^2.3.4",
     "should": "^8.1.1"
